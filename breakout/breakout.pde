@@ -36,8 +36,13 @@ void checkCollide() {
     ySpeed = -ySpeed;
   }
   if (ballY >= 377) {
-    if (ballX > mouseX-45 && ballX <= mouseX+45) {
-      ySpeed = -ySpeed;
+    if (ballX >= mouseX && ballX <= mouseX+45) {
+      xSpeed = 1;
+      ySpeed = -1;
+    } 
+    if (ballX > mouseX-45 && ballX < mouseX) {
+      xSpeed = -1;
+      ySpeed = -1;
     }
   }
   if (ballY > 390) {
