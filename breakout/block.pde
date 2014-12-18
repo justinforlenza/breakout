@@ -14,7 +14,7 @@ class block {
   return ypos;
  }
  void collide(){
-  if(state < 4){
+  if(state < 2){
    state ++;
   } else {
    xpos = 800;
@@ -24,7 +24,7 @@ class block {
  void display(){
   fill(states[state]);
   rectMode(CENTER);
-  rect(xpos,ypos,60,30); 
+  rect(xpos,ypos,100,40); 
  }
 }
 
