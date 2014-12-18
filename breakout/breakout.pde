@@ -1,6 +1,7 @@
 float ballX = 300, ballY = 250, ballSpeed = 1;
 int paddleX = 300, xSpeed = 1, ySpeed = 1;
 block[][] blocks = new block[9][4];
+float seconds = 0;
 void setup() {
   size(1000, 400);
   noCursor();
@@ -64,32 +65,46 @@ void reset() {
   ballX = 300;
   ballY = 150;
   ballSpeed = 1;
-  ballDirection = random(1, 358);
 }
 void checkBreak() {
-  for (int i = 0; i < blocks.length; i ++) {
-    for (int k = 0; k < blocks[i].length; k ++) {
-      int blockY = blocks[i][k].getY();
-      int blockX = blocks[i][k].getX();
-      if (ballX <= blockX + 57 && ballX >= blockX - 57) {
-        if (ballY <= blockY + 27 && ballY >= blockY + 20) {
-          blocks[i][k].collide();
-          ySpeed = -ySpeed;
-          ballSpeed += .025;
-        } else if (ballY <= blockY - 20 && ballY >= blockY - 27) {
-          blocks[i][k].collide();
-          ySpeed = -ySpeed;
-          ballSpeed += .025;
+  if (millis() - seconds >= 90) {
+    for (int i = 0; i < blocks.length; i ++) {
+      for (int k = 0; k < blocks[i].length; k ++) {
+        int blockY = blocks[i][k].getY();
+        int blockX = blocks[i][k].getX();
+        if (ballX <= blockX + 57 && ballX >= blockX - 57) {
+          if (ballY <= blockY + 27 && ballY >= blockY + 20) {
+            blocks[i][k].collide();
+            ySpeed = -ySpeed;
+            ballSpeed += .025;
+            seconds = millis();
+            println(seconds);
+            break;
+          } else if (ballY <= blockY - 20 && ballY >= blockY - 27) {
+            blocks[i][k].collide();
+            ySpeed = -ySpeed;
+            ballSpeed += .025;
+            seconds = millis();
+            println(seconds);
+            break;
+          }
         }
-      } else if (ballY <= blockY + 27 && ballY >= blockY - 27) {
-        if (ballX <= blockX + 57 && ballX >= blockX + 50) {
-          blocks[i][k].collide();
-          xSpeed = -xSpeed;
-          ballSpeed += .025;
-        } else if (ballX >= blockX - 57 && ballX <= blockX - 50) {
-          blocks[i][k].collide();
-          xSpeed = -xSpeed;
-          ballSpeed += .025;
+        if (ballY <= blockY + 20 && ballY >= blockY - 20) {
+          if (ballX <= blockX + 57 && ballX >= blockX + 50) {
+            blocks[i][k].collide();
+            xSpeed = -xSpeed;
+            ballSpeed += .025;
+            seconds = millis();
+            println(seconds);
+            break;
+          } else if (ballX >= blockX - 57 && ballX <= blockX - 50) {
+            blocks[i][k].collide();
+            xSpeed = -xSpeed;
+            ballSpeed += .025;
+            seconds = millis();
+            println(seconds);
+            break;
+          }
         }
       }
     }
