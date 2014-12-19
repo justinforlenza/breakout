@@ -7,15 +7,6 @@ class block {
   xpos=_xpos;
   ypos=_ypos;
  }
- int getX(){
-  return xpos;
- }
- int getY(){
-  return ypos;
- }
- int getScore(){
-  return state; 
- }
  void collide(){
   if(state < 2){
    state ++;

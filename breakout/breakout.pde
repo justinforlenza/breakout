@@ -11,7 +11,7 @@ block[][] blocks = new block[9][4];
 
 void setup() {
   size(1000, 400);
-  //noCursor();
+  noCursor();
   minim = new Minim(this);
   brk = minim.loadFile("break.mp3");
   pong = minim.loadFile("pong.mp3");
@@ -36,7 +36,7 @@ void draw() {
   checkBreak();
   score();
   lifeCounter("");
-  printMouse();
+  //printMouse();
 }
 
 void checkCollide() {
@@ -100,11 +100,11 @@ void reset() {
   ballSpeed = 1;
 }
 void checkBreak() {
-  if (millis() - seconds >= 85) {
+  if (millis() - seconds >= 75) {
     for (int i = 0; i < blocks.length; i ++) {
       for (int k = 0; k < blocks[i].length; k ++) {
-        int blockY = blocks[i][k].getY();
-        int blockX = blocks[i][k].getX();
+        int blockY = blocks[i][k].ypos;
+        int blockX = blocks[i][k].xpos;
         if (ballX <= blockX + 57 && ballX >= blockX - 57) {
           if (ballY <= blockY + 27 && ballY >= blockY + 20) {
             blocks[i][k].collide();
@@ -113,7 +113,7 @@ void checkBreak() {
             seconds = millis();
             brk.rewind();
             brk.play();
-            score += blocks[i][k].getScore() * 15;
+            score += blocks[i][k].state * 15;
             println(score);
             break;
           } else if (ballY <= blockY - 20 && ballY >= blockY - 27) {
@@ -123,7 +123,7 @@ void checkBreak() {
             seconds = millis();
             brk.rewind();
             brk.play();
-            score += blocks[i][k].getScore() * 15;
+            score += blocks[i][k].state * 15;
             println(score);
             break;
           }
@@ -136,7 +136,7 @@ void checkBreak() {
             seconds = millis();
             brk.rewind();
             brk.play();
-            score += blocks[i][k].getScore() * 15;
+            score += blocks[i][k].state * 15;
             println(score);
             break;
           } else if (ballX >= blockX - 57 && ballX <= blockX - 50) {
@@ -146,7 +146,7 @@ void checkBreak() {
             seconds = millis();
             brk.rewind();
             brk.play();
-            score += blocks[i][k].getScore() * 15;
+            score += blocks[i][k].state * 15;
             println(score);
             break;
           }
