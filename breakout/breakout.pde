@@ -5,7 +5,7 @@ AudioPlayer brk;
 AudioPlayer pong;
 
 float ballX = 300, ballY = 250, ballSpeed = 1, seconds = 0, score = 0;
-int paddleX = 300, xSpeed = 1, ySpeed = 1;
+int paddleX = 300, xSpeed = 1, ySpeed = 1,life = 5;
 
 block[][] blocks = new block[9][4];
 
@@ -34,11 +34,8 @@ void draw() {
   paddle();
   checkCollide();
   checkBreak();
-  textSize(24);
-  textAlign(CENTER, CENTER);
-  fill(255);
-  stroke(0);
-  text("Score : " + score, 500, 25);
+  score();
+  lifeCounter("");
   printMouse();
 }
 
@@ -71,12 +68,9 @@ void checkCollide() {
       pong.play();
     }
   }
-  if (ballY > 390) {
+  if (ballY > 400) {
     noLoop();
-    textSize(64);
-    textAlign(CENTER, CENTER);
-    fill(0);
-    text("Game Over", 500, 200);
+    lifeCounter("remove");
   }
 }
 
@@ -90,6 +84,14 @@ void ball() {
 void paddle() {
   rectMode(CENTER);
   rect(mouseX, 390, 90, 10);
+}
+
+void keyPressed(){
+ if (key == ' '){
+  loop();
+  ballX = 300;
+  ballY = 250;
+ } 
 }
 
 void reset() {
@@ -155,5 +157,30 @@ void checkBreak() {
 }
 void printMouse() {
   println("X : " + mouseX + " , Y: " + mouseY);
+}
+void score() {
+  textSize(24);
+  textAlign(CENTER, CENTER);
+  fill(255);
+  stroke(0);
+  text("Score : " + score, 500, 25);
+}
+void lifeCounter(String type){
+ if (type == "remove"){
+  life -= 1;
+  if (life == 0){
+    noLoop();
+    textSize(64);
+    textAlign(CENTER, CENTER);
+    fill(0);
+    text("Game Over", 500, 200); 
+  }
+ } else {
+  textSize(24);
+  textAlign(CENTER, CENTER);
+  fill(255);
+  stroke(0);
+  text("Lives : " + life, 900, 25);
+ }
 }
 
