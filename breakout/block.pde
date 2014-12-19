@@ -13,6 +13,9 @@ class block {
  int getY(){
   return ypos;
  }
+ int getScore(){
+  return state; 
+ }
  void collide(){
   if(state < 2){
    state ++;

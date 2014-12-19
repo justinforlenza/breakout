@@ -4,14 +4,14 @@ Minim minim;
 AudioPlayer brk;
 AudioPlayer pong;
 
-float ballX = 300, ballY = 250, ballSpeed = 1,seconds = 0;
+float ballX = 300, ballY = 250, ballSpeed = 1, seconds = 0, score = 0;
 int paddleX = 300, xSpeed = 1, ySpeed = 1;
 
 block[][] blocks = new block[9][4];
 
 void setup() {
   size(1000, 400);
-  noCursor();
+  //noCursor();
   minim = new Minim(this);
   brk = minim.loadFile("break.mp3");
   pong = minim.loadFile("pong.mp3");
@@ -34,6 +34,12 @@ void draw() {
   paddle();
   checkCollide();
   checkBreak();
+  textSize(24);
+  textAlign(CENTER, CENTER);
+  fill(255);
+  stroke(0);
+  text("Score : " + score, 500, 25);
+  printMouse();
 }
 
 void checkCollide() {
@@ -105,6 +111,8 @@ void checkBreak() {
             seconds = millis();
             brk.rewind();
             brk.play();
+            score += blocks[i][k].getScore() * 15;
+            println(score);
             break;
           } else if (ballY <= blockY - 20 && ballY >= blockY - 27) {
             blocks[i][k].collide();
@@ -113,6 +121,8 @@ void checkBreak() {
             seconds = millis();
             brk.rewind();
             brk.play();
+            score += blocks[i][k].getScore() * 15;
+            println(score);
             break;
           }
         }
@@ -124,6 +134,8 @@ void checkBreak() {
             seconds = millis();
             brk.rewind();
             brk.play();
+            score += blocks[i][k].getScore() * 15;
+            println(score);
             break;
           } else if (ballX >= blockX - 57 && ballX <= blockX - 50) {
             blocks[i][k].collide();
@@ -132,11 +144,16 @@ void checkBreak() {
             seconds = millis();
             brk.rewind();
             brk.play();
+            score += blocks[i][k].getScore() * 15;
+            println(score);
             break;
           }
         }
       }
     }
   }
+}
+void printMouse() {
+  println("X : " + mouseX + " , Y: " + mouseY);
 }
 
