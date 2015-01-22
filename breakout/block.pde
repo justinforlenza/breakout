@@ -6,19 +6,21 @@ class block {
  block(int _xpos, int _ypos){
   xpos=_xpos;
   ypos=_ypos;
+  int type = int(random(0,100));
+  if( type >= 0 && type <= 10){
+   block = loadImage("special.png"); 
+  } else {
+    block = loadImage("normal.png");
+  }
  }
  void collide(){
-  if(state < 2){
-   state ++;
-  } else {
    xpos = 800;
    ypos = 800;
-  }
  }
  void display(){
   fill(states[state]);
   rectMode(CENTER);
-  rect(xpos,ypos,100,40); 
+  rect(xpos,ypos,100,40,10); 
  }
 }
 
