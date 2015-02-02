@@ -3,6 +3,7 @@ import ddf.minim.*;
 Minim minim;
 AudioPlayer brk;
 AudioPlayer pong;
+AudioPlayer chnce;
 
 float ballX = 300, ballY = 250, ballSpeed = 1, seconds = 0, score = 0, startTime;
 int paddleX = 300, xSpeed = 1, ySpeed = 1, life = 5, currentBuff, isNew, multiplier=1, paddleWidth = 90, BallSize = 15, buffTime;
@@ -12,8 +13,9 @@ void setup() {
   size(1000, 400);
   noCursor();
   minim = new Minim(this);
-  brk = minim.loadFile("break.mp3");
-  pong = minim.loadFile("pong.mp3");
+  brk = minim.loadFile("break.wav");
+  pong = minim.loadFile("pong.wav");
+  chnce = minim.loadFile("chance.wav");
   for (int i = 0; i < blocks.length; i ++) {
     for (int k = 0; k < blocks[i].length; k ++) {
       blocks[i][k] = new block((i + 75)+i*105, (k+75)+k*45);
@@ -58,13 +60,13 @@ void checkCollide() {
       xSpeed = 1;
       ySpeed = -1;
       pong.rewind();
-      //pong.play();
+      pong.play();
     } 
     if (ballX > mouseX-(paddleWidth/2) && ballX < mouseX) {
       xSpeed = -1;
       ySpeed = -1;
       pong.rewind();
-      //pong.play();
+      pong.play();
     }
   }
   if (ballY > 400) {
@@ -111,7 +113,7 @@ void checkBreak() {
             ballSpeed += .025;
             seconds = millis();
             brk.rewind();
-            //brk.play();
+            brk.play();
             score += multiplier * 15;
             if (blocks[i][k].type == 1) {
               buffChange();
@@ -123,7 +125,7 @@ void checkBreak() {
             ballSpeed += .025;
             seconds = millis();
             brk.rewind();
-            //brk.play();
+            brk.play();
             score += multiplier * 15;
             if (blocks[i][k].type == 1) {
               buffChange();
@@ -138,7 +140,7 @@ void checkBreak() {
             ballSpeed += .025;
             seconds = millis();
             brk.rewind();
-            //brk.play();
+            brk.play();
             score += multiplier * 15;
             if (blocks[i][k].type == 1) {
               buffChange();
@@ -150,7 +152,7 @@ void checkBreak() {
             ballSpeed += .025;
             seconds = millis();
             brk.rewind();
-            //brk.play();
+            brk.play();
             score += multiplier * 15;
             if (blocks[i][k].type == 1) {
               buffChange();
@@ -195,6 +197,8 @@ void lifeCounter(String type) {
 }
 
 void buffChange() {
+  chnce.rewind();
+  chnce.play();
   if(currentBuff == 2){
    ballSpeed = ballSpeed /2; 
   }
