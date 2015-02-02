@@ -2,6 +2,7 @@ class block {
   int xpos;
   int ypos;
   int type;
+  int display;
   PImage block;
   block(int _xpos, int _ypos) {
     xpos=_xpos;
@@ -16,12 +17,13 @@ class block {
     }
   }
   void collide() {
-    xpos = 800;
-    ypos = 800;
+    display = 1;
   }
   void display() {
-    imageMode(CENTER);
-    image(block, xpos, ypos, 100, 40);
+    if (display != 1) {
+      imageMode(CENTER);
+      image(block, xpos, ypos, 100, 40);
+    }
   }
 }
 
